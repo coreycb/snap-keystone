@@ -200,5 +200,13 @@ class OpenStackSnap(object):
             cmd = [NGINX_EP_TYPE]
             cmd.extend(DEFAULT_NGINX_ARGS)
 
+            for cfile in entry_point.get('config-file', []):
+                cfile = cfile.format(**self.snap_env)
+                if os.path.exists(cfile):
+                    cmd.append('-c {}'.format(cfile))
+                else:
+                    LOG.debug('Configuration file {} not found'
+                              ', skipping'.format(cfile))
+
         LOG.debug('Executing command {}'.format(' '.join(cmd)))
         os.execvp(cmd[0], cmd)
