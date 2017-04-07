@@ -55,7 +55,7 @@ setup:
     "/var/run/uwsgi/keystone": "keystone:keystone"
 entry_points:
   keystone-manage:
-    binary: keystone-manage
+    binary: "{snap}/bin/keystone-manage"
     config-files:
       - "/etc/keystone/keystone.conf"
     config-dirs:
